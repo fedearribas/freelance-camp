@@ -1,3 +1,4 @@
+import { Proposal } from './../proposal.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./proposal-new.component.css']
 })
 export class ProposalNewComponent implements OnInit {
+  proposal = new Proposal;
 
   constructor() { }
 

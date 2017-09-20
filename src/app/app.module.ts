@@ -10,6 +10,7 @@ import { ProposalListComponent } from './proposals/proposal-list/proposal-list.c
 import { ProposalNewComponent } from './proposals/proposal-new/proposal-new.component';
 import { ProposalShowComponent } from './proposals/proposal-show/proposal-show.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     NgbModule.forRoot()
   ],
   providers: [],
