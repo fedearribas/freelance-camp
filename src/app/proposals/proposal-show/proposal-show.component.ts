@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Proposal } from './../proposal.model';
+import { ProposalsService } from './../proposals.service';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,17 +10,19 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProposalShowComponent implements OnInit {
 
-  id: number;
-  routeId: any;
+  proposal: Proposal;
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute, private proposalsService: ProposalsService
   ) {}
 
   ngOnInit(): void {
-    this.routeId = this.route.params.subscribe(
+    this.route.params.subscribe(
         params => {
-          this.id = +params['id'];
+          const id = +params['id'];
+          this.proposalsService.getProposal(id).subscribe(
+            (proposal: Proposal) => this.proposal = proposal
+          );
         }
       );
   }

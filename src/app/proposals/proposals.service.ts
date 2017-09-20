@@ -1,6 +1,6 @@
 import { Proposal } from './proposal.model';
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -16,6 +16,16 @@ export class ProposalsService {
     return this.http.get(this.proposalUrl).map(
       (response: Response) => <Proposal[]>response.json()
     ).catch(this.handleError);
+  }
+
+  getProposal(id: number) {
+    return this.http.get(this.proposalUrl + '/' + id).map(
+      (response: Response) => <Proposal>response.json()
+    ).catch(this.handleError);
+  }
+
+  createProposal(proposal: Proposal) {
+    return this.http.post(this.proposalUrl, proposal);
   }
 
   private handleError (error: Response | any) {
