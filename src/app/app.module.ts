@@ -1,3 +1,4 @@
+import { ProposalsService } from './proposals/proposals.service';
 import { DocumentsService } from './documents/documents.services';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -31,7 +32,10 @@ import { HttpModule } from '@angular/http';
     HttpModule,
     NgbModule.forRoot()
   ],
-  providers: [DocumentsService],
+  providers: [
+    DocumentsService,
+    ProposalsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
