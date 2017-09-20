@@ -131,6 +131,10 @@
               [disabled]="!proposalForm.valid"
               [hidden]="submitted">
               Generate Proposal</button>
+
+              <div *ngIf="submitted" class="alert alert-success" role="alert">
+                Your proposal has been generated. <a routerLink="/proposals" class="alert-link">View all proposals</a>
+              </div>
   
           </form>
         </div>
