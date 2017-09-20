@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import {TimerObservable} from 'rxjs/observable/TimerObservable';
 import { DocumentsService } from './documents.services';
 import { Document } from './document.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './documents.component.html',
   styleUrls: ['./documents.component.css']
 })
-export class DocumentsComponent implements OnInit {
+export class DocumentsComponent implements OnInit, OnDestroy {
   documents: Document[] = [];
   pageTitle = 'Documents Dashboard';
   errorMessage = '';
@@ -19,7 +19,7 @@ export class DocumentsComponent implements OnInit {
   constructor(private documentsService: DocumentsService) { }
 
   ngOnInit() {
-    TimerObservable.create(0, 5000).subscribe(
+    this.timerSubscription = TimerObservable.create(0, 5000).subscribe(
       () => this.getDocuments()
     );
   }
@@ -29,6 +29,10 @@ export class DocumentsComponent implements OnInit {
       (documents: Document[]) => this.documents = documents,
       (error) => this.errorMessage = error
     );
+  }
+
+  ngOnDestroy() {
+    this.timerSubscription.unsubscribe();
   }
 
 }
