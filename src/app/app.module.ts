@@ -1,3 +1,4 @@
+import { DocumentsService } from './documents/documents.services';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -11,6 +12,7 @@ import { ProposalNewComponent } from './proposals/proposal-new/proposal-new.comp
 import { ProposalShowComponent } from './proposals/proposal-show/proposal-show.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -26,9 +28,10 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpModule,
     NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [DocumentsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

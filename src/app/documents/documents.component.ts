@@ -1,5 +1,9 @@
+import { Observable } from 'rxjs/Observable';
+import {TimerObservable} from 'rxjs/observable/TimerObservable';
+import { DocumentsService } from './documents.services';
 import { Document } from './document.model';
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-documents',
@@ -7,14 +11,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./documents.component.css']
 })
 export class DocumentsComponent implements OnInit {
-  documents: Document[] = [
-    new Document('My First Doc', 'description', 'http://google.com', '19/09/2017', 'http://maxpixel.freegreatpicture.com/static/photo/1x/Computer-Freelance-Laptop-Communication-Hand-1757224.jpg'),
-    new Document('My Second Doc', 'description', 'http://google.com', '19/09/2017', 'http://maxpixel.freegreatpicture.com/static/photo/1x/Computer-Freelance-Laptop-Communication-Hand-1757224.jpg'),
-    new Document('My Last Doc', 'description', 'http://google.com', '19/09/2017', 'http://maxpixel.freegreatpicture.com/static/photo/1x/Computer-Freelance-Laptop-Communication-Hand-1757224.jpg')
-  ];
-  constructor() { }
+  documents: Document[] = [];
+  pageTitle = 'Documents Dashboard';
+  errorMessage = '';
+  private timerSubscription: Subscription;
+
+  constructor(private documentsService: DocumentsService) { }
 
   ngOnInit() {
+    TimerObservable.create(0, 5000).subscribe(
+      () => this.getDocuments()
+    );
+  }
+
+  getDocuments() {
+    this.documentsService.getDocuments().subscribe(
+      (documents: Document[]) => this.documents = documents,
+      (error) => this.errorMessage = error
+    );
   }
 
 }
