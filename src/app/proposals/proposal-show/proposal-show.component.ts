@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-proposal-show',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProposalShowComponent implements OnInit {
 
-  constructor() { }
+  id: number;
+  routeId: any;
 
-  ngOnInit() {
+  constructor(
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.routeId = this.route.params.subscribe(
+        params => {
+          this.id = +params['id'];
+        }
+      );
   }
-
 }
